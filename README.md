@@ -120,13 +120,14 @@ A AIDA foi criada para modernizar o atendimento acadêmico dentro das instituiç
 
 # 👥 Perfis de Usuário
 
-O sistema possui diferentes níveis de acesso.
+O sistema possui diferentes níveis de acesso através das camadas da aplicação 
 
 ## 👨‍🎓 Aluno
 
 * Utilização do chatbot
 * Visualização de avisos
 * Acesso às funcionalidades acadêmicas
+* Suporte ao aluno através da base de conhecimento da IA 
 
 ## 👨‍🏫 Professor
 
