@@ -12,10 +12,6 @@ O sistema tem como objetivo automatizar o direcionamento de informações acadê
 
 * Python 3.12+
 * Flask
-* Flask-JWT-Extended
-* Flask-SQLAlchemy
-* Flask-CORS
-* PyMySQL
 * Google Gemini API
 * MySQL
 
