@@ -1,185 +1,402 @@
-# ChatBot AIDA — Documentação do Projeto
+# 🤖 AIDA — Assistente Inteligente de Direcionamento Automatizado
 
-**AIDA** (Assistente Inteligente Digital Acadêmica) é um chatbot educacional para unidades escolares,
-com frontend em React/TypeScript e backend em Python/Flask integrado ao MySQL e à IA da Anthropic (Claude).
+AIDA (Assistente Inteligente de Direcionamento Automatizado) é uma plataforma web desenvolvida para auxiliar alunos, professores, responsáveis e administradores em ambientes escolares por meio de Inteligência Artificial.
+
+O sistema tem como objetivo automatizar o direcionamento de informações acadêmicas, facilitar a comunicação entre os usuários e fornecer suporte inteligente para dúvidas, orientações e consultas dentro do ambiente educacional.
 
 ---
 
-## 📁 Estrutura do Projeto
+# 🚀 Tecnologias Utilizadas
 
-```
-ChatBotAIDA/
-├── backend/                       ← API Flask (Python)
-│   ├── app/
-│   │   ├── __init__.py            ← Factory da aplicação Flask
-│   │   ├── config.py              ← Configurações (DB, JWT, IA)
-│   │   ├── models/
-│   │   │   └── models.py          ← User, Conversation, Message (SQLAlchemy)
-│   │   ├── routes/
-│   │   │   ├── auth.py            ← POST /api/auth/login, /register, GET /me
-│   │   │   ├── chat.py            ← CRUD conversas + envio de mensagens
-│   │   │   └── users.py           ← Perfil e senha do usuário
-│   │   └── services/
-│   │       └── ai_service.py      ← Integração com Claude (Anthropic)
-│   ├── run.py                     ← Ponto de entrada Flask
+## Backend
+
+* Python 3.12+
+* Flask
+* Flask-JWT-Extended
+* Flask-SQLAlchemy
+* Flask-CORS
+* PyMySQL
+* Google Gemini API
+* MySQL
+
+## Frontend
+
+* React
+* TypeScript
+* Vite
+* Material UI (MUI)
+* Tailwind CSS
+* Context API
+
+## Banco de Dados
+
+* MySQL
+
+---
+
+# 📁 Estrutura do Projeto
+
+```text
+ChatBotAIDA
+│
+├── backend
+│   ├── app
+│   │   ├── models
+│   │   │   ├── __init__.py
+│   │   │   └── models.py
+│   │   │
+│   │   ├── routes
+│   │   │   ├── auth.py
+│   │   │   ├── admin.py
+│   │   │   ├── chat.py
+│   │   │   ├── student.py
+│   │   │   ├── users.py
+│   │   │   └── __init__.py
+│   │   │
+│   │   ├── services
+│   │   │   ├── ai_service.py
+│   │   │   ├── permissions.py
+│   │   │   └── __init__.py
+│   │   │
+│   │   ├── config.py
+│   │   └── __init__.py
+│   │
+│   ├── create_admin.py
 │   ├── requirements.txt
-│   └── .env.example               ← Variáveis de ambiente necessárias
+│   ├── run.py
+│   └── .env.example
 │
-├── frontend/                      ← App React + Vite + MUI
-│   └── src/
-│       ├── api.ts                 ← Camada única de acesso à API REST
-│       └── app/
-│           ├── context/
-│           │   └── AuthContext.tsx ← Autenticação real com JWT
-│           └── pages/
-│               ├── Login.tsx      ← Login + cadastro
-│               └── ChatPage.tsx   ← Chat integrado com backend
+├── frontend
+│   ├── src
+│   │   ├── app
+│   │   │   ├── context
+│   │   │   │   └── AuthContext.tsx
+│   │   │   │
+│   │   │   └── pages
+│   │   │       ├── Login.tsx
+│   │   │       ├── Dashboard.tsx
+│   │   │       ├── ChatPage.tsx
+│   │   │       ├── AdminPanel.tsx
+│   │   │       ├── UsersPage.tsx
+│   │   │       ├── StudentHome.tsx
+│   │   │       └── ForgotPassword.tsx
+│   │   │
+│   │   ├── components
+│   │   │   └── ProtectedRoute.tsx
+│   │   │
+│   │   ├── assets
+│   │   │   └── aida-logo.png
+│   │   │
+│   │   ├── styles
+│   │   ├── api.ts
+│   │   └── main.tsx
+│   │
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── vite.config.js
+│   ├── tailwind.config.js
+│   └── .env.example
 │
-└── database/
-    └── schema.sql                 ← DDL MySQL (tabelas users, conversations, messages)
+├── database
+│   └── schema.sql
+│
+├── README.md
+├── package.json
+├── package-lock.json
+└── .gitignore
 ```
 
 ---
 
-## ⚙️ Configuração
+# 🎯 Objetivos do Projeto
 
-### 1. Banco de Dados (MySQL)
+A AIDA foi criada para modernizar o atendimento acadêmico dentro das instituições de ensino, oferecendo:
+
+* Atendimento automatizado através de Inteligência Artificial
+* Centralização de informações escolares
+* Suporte para alunos, professores e responsáveis
+* Comunicação rápida e eficiente
+* Redução da carga de atendimentos repetitivos
+* Acesso simplificado às informações acadêmicas
+
+---
+
+# 👥 Perfis de Usuário
+
+O sistema possui diferentes níveis de acesso.
+
+## 👨‍🎓 Aluno
+
+* Utilização do chatbot
+* Visualização de avisos
+* Acesso às funcionalidades acadêmicas
+
+## 👨‍🏫 Professor
+
+* Utilização do chatbot
+* Gerenciamento de informações acadêmicas
+* Publicação de avisos
+
+## 👤 Usuário
+
+* Acesso básico ao sistema
+* Utilização da IA
+
+## 👑 Administrador
+
+* Controle total da plataforma
+* Gerenciamento de usuários
+* Alteração de cargos e permissões
+* Monitoramento do sistema
+
+---
+
+# 🤖 Inteligência Artificial
+
+A plataforma utiliza a API do Google Gemini para fornecer respostas inteligentes e contextualizadas.
+
+Principais recursos:
+
+* Atendimento automatizado
+* Respostas contextualizadas
+* Histórico de conversa
+* Suporte educacional
+* Direcionamento de informações acadêmicas
+
+---
+
+# 🔐 Segurança
+
+O sistema implementa:
+
+* Autenticação JWT
+* Rotas protegidas
+* Controle de permissões
+* Senhas criptografadas
+* Proteção de credenciais através de variáveis de ambiente
+* Separação entre frontend e backend
+
+---
+
+# ⚙️ Instalação
+
+## 1. Clonar o Repositório
 
 ```bash
-# Criar o banco
-mysql -u root -p < database/schema.sql
+git clone https://github.com/Pedrin-US/chatbot-aida.git
+
+cd chatbot-aida
 ```
 
-### 2. Backend (Flask)
+---
+
+## 2. Configurar o Banco de Dados
+
+Criar o banco:
+
+```sql
+CREATE DATABASE chatbot_aida;
+```
+
+Importar o schema:
+
+```bash
+mysql -u root -p chatbot_aida < database/schema.sql
+```
+
+---
+
+## 3. Configurar o Backend
+
+Acessar a pasta:
 
 ```bash
 cd backend
-
-# Crie e ative o ambiente virtual
-python -m venv venv
-source venv/bin/activate      # Linux/Mac
-# venv\Scripts\activate       # Windows
-
-# Instale dependências
-pip install -r requirements.txt
-
-# Configure variáveis de ambiente
-cp .env.example .env
-# Edite .env com suas credenciais MySQL e chave da IA
-
-# Inicie o servidor
-python run.py
-# → http://localhost:5000
 ```
 
-### 3. Frontend (React)
+Criar ambiente virtual:
 
 ```bash
-cd frontend
-
-# Instale dependências (o projeto já tem package.json)
-npm install
-
-# Configure variável de ambiente
-cp .env.example .env
-# .env: VITE_API_URL=http://localhost:5000/api
-
-# Inicie em desenvolvimento
-npm run dev
-# → http://localhost:5173
+python -m venv venv
 ```
 
----
+### Windows
 
-## 🔌 API REST — Endpoints
-
-### Autenticação
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| POST | `/api/auth/register` | Cadastra usuário |
-| POST | `/api/auth/login` | Login, retorna JWT |
-| GET | `/api/auth/me` | Dados do usuário autenticado |
-
-### Chat
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| GET | `/api/chat/conversations` | Lista conversas do usuário |
-| POST | `/api/chat/conversations` | Cria nova conversa |
-| DELETE | `/api/chat/conversations/:id` | Remove conversa |
-| GET | `/api/chat/conversations/:id/messages` | Lista mensagens |
-| POST | `/api/chat/conversations/:id/messages` | Envia mensagem → IA responde |
-
-### Usuários
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| PUT | `/api/users/profile` | Atualiza nome/avatar |
-| PUT | `/api/users/change-password` | Troca senha |
-
-Todos os endpoints de chat e usuários requerem header:
-```
-Authorization: Bearer <jwt_token>
+```bash
+venv\Scripts\activate
 ```
 
----
+### Linux / MacOS
 
-## 🚀 Melhorias Realizadas
+```bash
+source venv/bin/activate
+```
 
-### Estrutura
-- **Separação backend/frontend** — projeto dividido em dois contextos independentes
-- **Arquitetura em camadas** no backend: routes → services → models
-- **`api.ts`** no frontend: camada centralizada de acesso ao backend, nenhuma chamada HTTP fora dela
+Instalar dependências:
 
-### Backend (criado do zero)
-- **Flask com Blueprints** para organização modular das rotas
-- **SQLAlchemy ORM** — modelos `User`, `Conversation`, `Message` com relacionamentos e cascade delete
-- **JWT** (flask-jwt-extended) para autenticação stateless
-- **CORS** configurado por variável de ambiente
-- **Integração com Claude (Anthropic)** em `ai_service.py`, com fallback para desenvolvimento sem chave
-- **Prompt do sistema** personalizado para contexto escolar
-- **Histórico de conversa** enviado à IA a cada mensagem (contexto persistente)
-- Hash de senha com `werkzeug.security` (PBKDF2-SHA256)
+```bash
+pip install -r requirements.txt
+```
 
-### Frontend
-- **`AuthContext`** agora autentica via API real + restaura sessão com JWT do localStorage
-- **`Login.tsx`** ganhou aba de **cadastro** sem precisar de página nova
-- **`ChatPage.tsx`** completamente refatorado:
-  - CRUD real de conversas (criar, listar, deletar)
-  - Mensagens persistidas no banco
-  - **Mensagem otimista** do usuário aparece instantaneamente
-  - **Indicador de digitação** animado enquanto a IA responde
-  - Scroll automático para última mensagem
-  - Tratamento de erros com rollback da mensagem otimista
+Criar arquivo de ambiente:
 
-### Banco de Dados
-- **Schema SQL documentado** com índices nas colunas mais consultadas
-- Tabelas com `CASCADE DELETE`: apagar conversa remove as mensagens automaticamente
-- Suporte a `utf8mb4` para emojis e caracteres especiais
+```bash
+copy .env.example .env
+```
 
----
+Configurar:
 
-## 🔑 Variáveis de Ambiente
-
-### backend/.env
 ```env
-DATABASE_URL=mysql+pymysql://root:senha@localhost:3306/chatbot_aida
-JWT_SECRET_KEY=<string-aleatoria-segura>
-AI_API_KEY=sk-ant-...          # Chave Anthropic
-AI_MODEL=claude-sonnet-4-20250514
+DATABASE_URL=mysql+pymysql://root:SUA_SENHA@localhost:3306/chatbot_aida
+
+JWT_SECRET_KEY=sua_chave_jwt
+
+AI_PROVIDER=gemini
+
+AI_API_KEY=sua_chave_gemini
+
+AI_MODEL=gemini-1.5-flash
+
 FRONTEND_URL=http://localhost:5173
 ```
 
-### frontend/.env
+Executar:
+
+```bash
+python run.py
+```
+
+Backend disponível em:
+
+```text
+http://localhost:5000
+```
+
+---
+
+## 4. Configurar o Frontend
+
+Acessar:
+
+```bash
+cd frontend
+```
+
+Instalar dependências:
+
+```bash
+npm install
+```
+
+Criar arquivo:
+
+```bash
+copy .env.example .env
+```
+
+Configurar:
+
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
 
+Executar:
+
+```bash
+npm run dev
+```
+
+Frontend disponível em:
+
+```text
+http://localhost:5173
+```
+
 ---
 
-## 🛣️ Próximos Passos Sugeridos
+# 🔌 Principais Rotas da API
 
-- [ ] Painel de administração para gestão de usuários
-- [ ] Upload real de arquivos (PDF, imagens) no chat
-- [ ] Integração com banco de dados acadêmico (notas, faltas, horários)
-- [ ] Notificações em tempo real (WebSocket / Server-Sent Events)
-- [ ] Testes automatizados (pytest para backend, Vitest para frontend)
-- [ ] Deploy com Docker Compose
+## Autenticação
+
+```http
+POST /api/auth/register
+POST /api/auth/login
+GET  /api/auth/me
+```
+
+## Chat
+
+```http
+GET    /api/chat/conversations
+POST   /api/chat/conversations
+DELETE /api/chat/conversations/<id>
+
+GET    /api/chat/conversations/<id>/messages
+POST   /api/chat/conversations/<id>/messages
+```
+
+## Administração
+
+```http
+GET /api/admin/users
+PUT /api/admin/users/<id>
+```
+
+## Usuários
+
+```http
+GET /api/users
+PUT /api/users/<id>
+```
+
+## Alunos
+
+```http
+GET /api/student/avisos
+```
+
+---
+
+# 📌 Funcionalidades Implementadas
+
+✅ Sistema de autenticação
+
+✅ Login e cadastro de usuários
+
+✅ Controle de acesso por perfil
+
+✅ Integração com Google Gemini
+
+✅ Chat inteligente
+
+✅ Histórico de conversas
+
+✅ Painel administrativo
+
+✅ Gerenciamento de usuários
+
+✅ Área exclusiva para alunos
+
+✅ Proteção de rotas
+
+✅ Estrutura preparada para recuperação de senha
+
+---
+
+# 🔮 Melhorias Futuras
+
+* Recuperação de senha por e-mail
+* Upload de arquivos
+* Integração com calendário acadêmico
+* Sistema de notas e frequência
+* Dashboard com métricas avançadas
+* Notificações em tempo real
+* Testes automatizados
+* Deploy em produção
+
+---
+
+# 📄 Licença
+
+Este projeto é destinado para fins educacionais e acadêmicos.
